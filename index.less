@@ -130,6 +130,7 @@ a {
       background-color: @background-color;
       transition: background-color 0.5s ease; 
       fill:#dbdbdb;
+      opacity: 1;
       &:hover {
         width: 50px;
         height: 50px;
@@ -158,6 +159,7 @@ a {
       transition: background-color 0.5s ease; 
       fill:#dbdbdb;
       display: none;
+      opacity: 1;
       &:hover {
         width: 50px;
         height: 50px;
@@ -168,7 +170,7 @@ a {
       .stop{
         width: 32px;
         margin:9px;
-        transition: fill 0.5s ease;
+        transition: fill 0.2s ease;
       }
       &:hover .stop{
         fill:white;
@@ -206,6 +208,7 @@ a {
     margin-left: 100px;
     margin-top: 10px;
     background: @background-color;
+    cursor: pointer;
     .loader {
       height: 100%;
       /*进度条长度*/

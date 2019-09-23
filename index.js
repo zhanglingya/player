@@ -19,16 +19,36 @@ icon.addEventListener('click', function() {
   music.play();
 
   //点击播放按钮弹出歌曲信息
-  song.style.transition = 'all 1.5s';
+  song.style.transition = 'all 1s';
   song.style.top = '-75px';
 
   //弹出暂停按钮，隐藏播放按钮
-  icon.style.display = 'none';
-  button = setInterval(() => {
-    menu.style.display = 'block';
-    menu.style.left = '-10px';
-  }, 400);
-  
+  function fadein(element,speed){
+    var speed = speed || 30;
+    var num = 0;
+    var appear = setInterval(() => {
+      num ++;
+      element.style.opacity = num/10;
+      if(num>=10){
+        clearInterval(appear);
+      }
+    }, speed);
+  }
+  fadein(menu,100);
+
+  function out(element,speed){
+    var speed = speed || 30;
+    var num = 10;
+    var diaappear = setInterval(() => {
+      num --;
+      element.style.opacity = num/10;
+      if(num<=0){
+        clearInterval(disappear);
+      }
+    }, speed);
+  }
+  fadein(icon,70);
+
   clearInterval(key);
 
   //点击播放按钮图片变大
@@ -42,12 +62,15 @@ icon.addEventListener('click', function() {
   circle.style.left = '55px';
 
   //点击播放按钮图片一直旋转
-  var rotate = 0;
-  interval = setInterval(function() {
-    rotate += 1;
-    cd.style.transform = 'rotate(' + rotate + 'deg)';
-    cd.style.transition = '0.2s linear';
-  }, 20);
+  function rotate() {
+    var rotate = 0;
+    interval = setInterval(function() {
+      rotate += 1;
+      cd.style.transform = 'rotate(' + rotate + 'deg)';
+      cd.style.transition = '0.2s linear';
+    }, 20);
+  }
+  rotate();
 
   //进度条
   music.addEventListener('timeupdate', show, false);
@@ -74,10 +97,9 @@ menu.addEventListener('click', function() {
   song.style.overflow = 'hidden';
 
   //弹出播放按钮，隐藏暂停按钮
+
   menu.style.display = 'none';
-  key = setInterval(() => {
-    icon.style.display = 'block';
-  }, 400);
+  icon.style.display = 'block';
   clearInterval(button);
 
   //清除定时器

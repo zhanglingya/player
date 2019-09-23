@@ -123,6 +123,7 @@ a {
   background-color: #fffeff;
   transition: background-color 0.5s ease;
   fill: #dbdbdb;
+  opacity: 1;
 }
 .player .button .icon:hover {
   width: 50px;
@@ -148,6 +149,7 @@ a {
   transition: background-color 0.5s ease;
   fill: #dbdbdb;
   display: none;
+  opacity: 1;
 }
 .player .button .menu:hover {
   width: 50px;
@@ -159,7 +161,7 @@ a {
 .player .button .menu .stop {
   width: 32px;
   margin: 9px;
-  transition: fill 0.5s ease;
+  transition: fill 0.2s ease;
 }
 .player .button .menu:hover .stop {
   fill: white;
@@ -194,6 +196,7 @@ a {
   margin-left: 100px;
   margin-top: 10px;
   background: #fffeff;
+  cursor: pointer;
 }
 .song .progress .loader {
   height: 100%;
