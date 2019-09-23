@@ -1,0 +1,210 @@
+body {
+  padding: 0;
+  margin: 0 auto;
+  font-family: 'Microsoft YaHei';
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+}
+a {
+  text-decoration: none;
+}
+.container {
+  width: 100%;
+  min-width: 350px;
+  height: 100%;
+  position: fixed;
+  background-color: #faf1f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.player {
+  width: 350px;
+  height: 80px;
+  border-radius: 10px;
+  background-color: #fffeff;
+  display: flex;
+  position: absolute;
+  box-shadow: 0 20px 20px #bf9dac;
+}
+.player .cd {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  top: -20px;
+  left: 20px;
+  background-image: url(asset/goodnight.png);
+  background-size: 100%;
+  position: absolute;
+}
+.player .circle {
+  position: relative;
+  z-index: 1;
+  top: 10px;
+  left: 50px;
+  width: 15px;
+  height: 15px;
+  background-color: rgba(255, 254, 255, 0.9);
+  border-radius: 50%;
+}
+.player .button {
+  margin-left: 120px;
+  margin-top: 15px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+}
+.player .button .upper {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 10px;
+  background-color: #fffeff;
+  background: url(asset/upper.svg) no-repeat;
+  background-size: 32px;
+  background-position: 9px;
+  transition: background-color 0.5s ease;
+  fill: #dbdbdb;
+}
+.player .button .upper:hover {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #e1dee2;
+  cursor: pointer;
+  color: white;
+}
+.player .button .upper .backward {
+  width: 32px;
+  margin: 9px;
+  transition: fill 0.5s ease;
+}
+.player .button .upper:hover .backward {
+  fill: white;
+}
+.player .button .lower {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 10px;
+  background-color: #fffeff;
+  background: url(asset/lower.svg) no-repeat;
+  background-size: 32px;
+  background-position: 9px;
+  transition: background-color 0.5s ease;
+  fill: #dbdbdb;
+}
+.player .button .lower:hover {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #e1dee2;
+  cursor: pointer;
+}
+.player .button .lower .forward {
+  width: 32px;
+  margin: 9px;
+  transition: fill 0.5s ease;
+}
+.player .button .lower:hover .forward {
+  fill: white;
+}
+.player .button .icon {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  margin-left: 12px;
+  border-radius: 10px;
+  background-color: #fffeff;
+  transition: background-color 0.5s ease;
+  fill: #dbdbdb;
+}
+.player .button .icon:hover {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #e1dee2;
+  cursor: pointer;
+}
+.player .button .icon .play {
+  width: 32px;
+  margin: 9px;
+  transition: fill 0.5s ease;
+}
+.player .button .icon:hover .play {
+  fill: white;
+}
+.player .button .menu {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 10px;
+  background-color: #fffeff;
+  transition: background-color 0.5s ease;
+  fill: #dbdbdb;
+  display: none;
+}
+.player .button .menu:hover {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #e1dee2;
+  cursor: pointer;
+}
+.player .button .menu .stop {
+  width: 32px;
+  margin: 9px;
+  transition: fill 0.5s ease;
+}
+.player .button .menu:hover .stop {
+  fill: white;
+}
+.song {
+  width: 330px;
+  height: 70px;
+  top: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: rgba(252, 248, 251, 0.8);
+  position: relative;
+}
+.song p {
+  display: inline-block;
+  margin-top: 5px;
+  padding-left: 100px;
+}
+.song .name {
+  font-size: 15px;
+  color: #515259;
+}
+.song .singer {
+  color: #c5c4c9;
+  font-size: 10px;
+}
+.song .progress {
+  width: 65%;
+  height: 6px;
+  border-radius: 7px;
+  margin-left: 100px;
+  margin-top: 10px;
+  background: #fffeff;
+}
+.song .progress .loader {
+  height: 100%;
+  /*进度条长度*/
+  width: 0%;
+  background: #e387a8;
+  border-radius: 7px;
+  box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.2);
+  animation: loader 1s linear;
+}
