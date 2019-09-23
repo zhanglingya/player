@@ -70,9 +70,8 @@ icon.addEventListener('click', function() {
 menu.addEventListener('click', function() {
   //缩回歌曲信息
   song.style.transition = 'all 1.5s';
-
   song.style.top = '10px';
-  song.style.visibility = '0';
+  song.style.overflow = 'hidden';
 
   //弹出播放按钮，隐藏暂停按钮
   menu.style.display = 'none';
