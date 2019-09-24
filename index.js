@@ -10,8 +10,6 @@ var loader = document.getElementById('loader');
 var music = new Audio();
 music.src = 'asset/颜人中 - 晚安.mp3';
 var interval;
-var button;
-var key;
 
 //播放
 icon.addEventListener('click', function() {
@@ -23,34 +21,10 @@ icon.addEventListener('click', function() {
   song.style.top = '-75px';
 
   //弹出暂停按钮，隐藏播放按钮
-  function fadein(element,speed){
-    var speed = speed || 30;
-    var num = 0;
-    var appear = setInterval(() => {
-      num ++;
-      element.style.opacity = num/10;
-      if(num>=10){
-        clearInterval(appear);
-      }
-    }, speed);
-  }
-  fadein(menu,100);
+  fadeout(icon);
 
-  function out(element,speed){
-    var speed = speed || 30;
-    var num = 10;
-    var diaappear = setInterval(() => {
-      num --;
-      element.style.opacity = num/10;
-      if(num<=0){
-        clearInterval(disappear);
-      }
-    }, speed);
-  }
-  fadein(icon,70);
-
-  clearInterval(key);
-
+  fadein(menu);
+  menu.style.right = '10px';
   //点击播放按钮图片变大
   cd.style.transition = 'all 0.5s';
   circle.style.transition = 'all 0.4s';
@@ -62,15 +36,13 @@ icon.addEventListener('click', function() {
   circle.style.left = '55px';
 
   //点击播放按钮图片一直旋转
-  function rotate() {
-    var rotate = 0;
-    interval = setInterval(function() {
-      rotate += 1;
-      cd.style.transform = 'rotate(' + rotate + 'deg)';
-      cd.style.transition = '0.2s linear';
-    }, 20);
-  }
-  rotate();
+  var rotate = 0;
+  var deg = cd.style.transform.replace(/[^0-9]/gi, '');
+  interval = setInterval(function() {
+    rotate += 1;
+    cd.style.transform = 'rotate(' + (rotate +deg)+ 'deg)';
+    cd.style.transition = '0.3s linear';
+  }, 15);
 
   //进度条
   music.addEventListener('timeupdate', show, false);
@@ -97,10 +69,9 @@ menu.addEventListener('click', function() {
   song.style.overflow = 'hidden';
 
   //弹出播放按钮，隐藏暂停按钮
+  fadeout(menu);
 
-  menu.style.display = 'none';
-  icon.style.display = 'block';
-  clearInterval(button);
+  fadein(icon);
 
   //清除定时器
   clearInterval(interval);
@@ -126,12 +97,9 @@ music.addEventListener('ended', function() {
   song.style.visibility = '0';
 
   //弹出播放按钮，隐藏暂停按钮
-  menu.style.display = 'none';
-  key = setInterval(() => {
-    icon.style.display = 'block';
-  }, 200);
-  clearInterval(button);
+  fadeout(menu);
 
+  fadein(icon);
   //恢复图片原始状态
   cd.style.transition = 'all 0.8s';
   circle.style.transition = 'all 0.6s';
@@ -146,3 +114,30 @@ music.addEventListener('ended', function() {
   cd.style.transform = 'rotate(0deg)';
   clearInterval(interval);
 });
+//淡出
+function fadeout(element) {
+  var num = 10;
+  var disappear = setInterval(() => {
+    num--;
+    element.style.opacity = num / 10;
+    element.style.display = 'none';
+    if (num <= 0) {
+      clearInterval(disappear);
+    }
+  }, 100);
+}
+
+//淡入
+function fadein(element) {
+  if (element.style.opacity != 1) {
+    var num = 0;
+    var appear = setInterval(() => {
+      num++;
+      element.style.opacity = num / 10;
+      element.style.display = 'block';
+      if (num >= 10) {
+        clearInterval(appear);
+      }
+    }, 100);
+  }
+}
