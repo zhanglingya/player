@@ -13,30 +13,21 @@ var interval;
 
 //播放
 icon.addEventListener('click', function() {
-  //点击播放按钮播放音乐
+  //播放音乐
   music.play();
 
-  //点击播放按钮弹出歌曲信息
-  song.style.transition = 'all 1s';
-  song.style.top = '-75px';
+  //弹出歌曲信息
+  song.classList.add('play-song');
 
   //弹出暂停按钮，隐藏播放按钮
   fadeout(icon);
 
   fadein(menu);
-  menu.style.right = '10px';
-  //点击播放按钮图片变大
-  cd.style.transition = 'all 0.5s';
-  circle.style.transition = 'all 0.4s';
-  cd.style.height = '90px';
-  cd.style.width = '90px';
-  circle.style.height = '20px';
-  circle.style.width = '20px';
-  circle.style.top = '15px';
-  circle.style.left = '55px';
+  menu.classList.add('hide');
 
-  //点击播放按钮图片一直旋转
-  cd.style.animation = 'rotate 10s linear 0s infinite normal';
+  //图片变大
+  cd.classList.add('play-cd');
+  circle.classList.add('play-circle');
 
   //进度条
   music.addEventListener('timeupdate', show, false);
@@ -58,9 +49,7 @@ icon.addEventListener('click', function() {
 //暂停
 menu.addEventListener('click', function() {
   //缩回歌曲信息
-  song.style.transition = 'all 1.5s';
-  song.style.top = '10px';
-  song.style.overflow = 'hidden';
+  song.classList.add('suspend-song');
 
   //弹出播放按钮，隐藏暂停按钮
   fadeout(menu);
@@ -68,44 +57,34 @@ menu.addEventListener('click', function() {
   fadein(icon);
 
   //清除定时器
-  cd.style.webkitAnimationPlayState = 'paused';
+  cd.classList.add('suspend-cd');
+  circle.classList.add('suspend-circle');
 
   //恢复图片原始状态
   var shrink = setTimeout(() => {
-    cd.style.height = '75px';
-    cd.style.width = '75px';
-    circle.style.height = '15px';
-    circle.style.width = '15px';
-    circle.style.top = '10px';
-    circle.style.left = '50px';
+    cd.classList.add('small-cd');
+    circle.classList.add('suspeng-circle');
   }, 100);
 
   //暂停音乐
   music.pause();
 });
+
 //结束
 music.addEventListener('ended', function() {
   //缩回歌曲信息
-  song.style.transition = 'all 1s';
-  song.style.top = '10px';
-  song.style.visibility = '0';
+  song.classList.add('stop-song');
 
   //弹出播放按钮，隐藏暂停按钮
   fadeout(menu);
 
   fadein(icon);
   //恢复图片原始状态
-  cd.style.transition = 'all 0.8s';
-  circle.style.transition = 'all 0.6s';
-  cd.style.height = '75px';
-  cd.style.width = '75px';
-  circle.style.height = '15px';
-  circle.style.width = '15px';
-  circle.style.top = '10px';
-  circle.style.left = '50px';
+  cd.classList.add('stop-cd');
+  circle.classList.add('stop-circle');
 
   //清除定时器
-  cd.style.animation = 'stop 0s linear 0s infinite normal';
+  cd.classList.add('cease');
 });
 
 //淡出

@@ -36,41 +36,72 @@ a {
   position: absolute;
   box-shadow: 0 20px 20px #bf9dac;
 }
-.player .cd {
+.player .disc {
   width: 75px;
   height: 75px;
-  border-radius: 50%;
-  top: -20px;
-  left: 20px;
-  background-image: url(asset/goodnight.jpg);
-  background-size: 100%;
   position: absolute;
 }
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.player .disc .cd {
+  width: 75px;
+  height: 75px;
+  top: -20px;
+  left: 20px;
+  border-radius: 50%;
+  background-image: url(asset/goodnight.jpg);
+  background-size: 100%;
+  position: relative;
 }
-@keyframes stop {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
+.player .disc .cd.play-cd {
+  transition: all 0.5s;
+  height: 90px;
+  width: 90px;
+  animation: rotate 10s linear 0s infinite normal;
 }
-.player .circle {
+.player .disc .cd.suspend-cd {
+  animation-play-state: paused;
+}
+.player .disc .cd.small-cd {
+  height: 75px;
+  width: 75px;
+}
+.player .disc .cd.stop-cd {
+  transition: all 0.8s;
+  height: 75px;
+  width: 75px;
+}
+.player .disc .cd.cease {
+  animation: stop 0s linear 0s infinite normal;
+}
+.player .disc .circle {
   position: relative;
   z-index: 1;
-  top: 10px;
+  top: -70px;
   left: 50px;
   width: 15px;
   height: 15px;
   background-color: rgba(255, 254, 255, 0.9);
   border-radius: 50%;
+}
+.player .disc .circle.play-circle {
+  transition: all 0.4s;
+  height: 20px;
+  width: 20px;
+  top: -80px;
+  left: 55px;
+}
+.player .disc .circle.suspend-circle {
+  transition: all 0.8s;
+  height: 15px;
+  width: 15px;
+  top: -70px;
+  left: 50px;
+}
+.player .disc .circle.stop-circle {
+  transition: all 0.6s;
+  height: 15px;
+  width: 15px;
+  top: -70px;
+  left: 50px;
 }
 .player .button {
   margin-left: 120px;
@@ -166,6 +197,9 @@ a {
   fill: #dbdbdb;
   display: none;
 }
+.player .button .menu.hide {
+  left: 5px;
+}
 .player .button .menu:hover {
   width: 50px;
   height: 50px;
@@ -191,8 +225,20 @@ a {
   position: relative;
   overflow: hidden;
 }
+.song.play-song {
+  transition: all 1s;
+  top: -75px;
+}
+.song.suspend-song {
+  transition: all 1.5s;
+  top: 10px;
+  overflow: hidden;
+}
+.song.stop-song {
+  transition: all 1s;
+  top: 10px;
+}
 .song p {
-  display: inline-block;
   margin-top: 5px;
   padding-left: 100px;
 }
@@ -221,4 +267,20 @@ a {
   border-radius: 7px;
   box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.2);
   animation: loader 1s linear;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes stop {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
