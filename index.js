@@ -78,7 +78,7 @@ menu.addEventListener('click', function() {
     circle.style.width = '15px';
     circle.style.top = '10px';
     circle.style.left = '50px';
-  }, 300);
+  }, 100);
 
   //暂停音乐
   music.pause();
