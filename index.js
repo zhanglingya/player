@@ -36,13 +36,7 @@ icon.addEventListener('click', function() {
   circle.style.left = '55px';
 
   //点击播放按钮图片一直旋转
-  var rotate = 0;
-  var deg = cd.style.transform.replace(/[^0-9]/gi, '');
-  interval = setInterval(function() {
-    rotate += 1;
-    cd.style.transform = 'rotate(' + (rotate +deg)+ 'deg)';
-    cd.style.transition = '0.3s linear';
-  }, 15);
+  cd.style.animation = 'rotate 10s linear 0s infinite normal';
 
   //进度条
   music.addEventListener('timeupdate', show, false);
@@ -74,7 +68,7 @@ menu.addEventListener('click', function() {
   fadein(icon);
 
   //清除定时器
-  clearInterval(interval);
+  cd.style.webkitAnimationPlayState = 'paused';
 
   //恢复图片原始状态
   var shrink = setTimeout(() => {
@@ -89,7 +83,7 @@ menu.addEventListener('click', function() {
   //暂停音乐
   music.pause();
 });
-
+//结束
 music.addEventListener('ended', function() {
   //缩回歌曲信息
   song.style.transition = 'all 1s';
@@ -111,9 +105,9 @@ music.addEventListener('ended', function() {
   circle.style.left = '50px';
 
   //清除定时器
-  cd.style.transform = 'rotate(0deg)';
-  clearInterval(interval);
+  cd.style.animation = 'stop 0s linear 0s infinite normal';
 });
+
 //淡出
 function fadeout(element) {
   var num = 10;
