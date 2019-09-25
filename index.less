@@ -163,6 +163,14 @@ a {
       transition: background-color 0.5s ease;
       fill: #dbdbdb;
       opacity: 1;
+      &.fade-out{
+        opacity :num/10;
+        display: none;
+      }
+      &.fade-in{
+        opacity :num/10;
+        display: block;
+      }
       &:hover {
         width: 50px;
         height: 50px;
@@ -189,6 +197,14 @@ a {
       transition: background-color 0.5s ease;
       fill: #dbdbdb;
       display: none;
+      &.fade-out{
+        opacity :num/10;
+        display: none;
+      }
+      &.fade-in{
+        opacity :num/10;
+        display: block;
+      }
       &.hide {
         left: 5px;
       }
@@ -223,7 +239,7 @@ a {
   overflow: hidden;
   
 &.transition-song{
-  transition: all 1s !important;
+  transition: all 1s;
 }
 
 
@@ -262,6 +278,7 @@ a {
     }
   }
 }
+
 
 
 

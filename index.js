@@ -18,16 +18,19 @@ icon.addEventListener('click', function() {
 
   //弹出歌曲信息
   song.classList.add('play-song');
+
   //弹出暂停按钮，隐藏播放按钮
   fadeout(icon);
-
   fadein(menu);
+
+  menu.classList.remove('fade-out');
+  icon.classList.remove('fade-in');
   menu.classList.add('hide');
 
   //图片变大
   cd.classList.add('play-cd');
   circle.classList.add('play-circle');
-  
+
   //旋转
   cd.classList.add('rotate');
 
@@ -54,15 +57,17 @@ menu.addEventListener('click', function() {
   //缩回歌曲信息
   song.classList.add('transition-song');
   song.classList.remove('play-song');
-  //弹出播放按钮，隐藏暂停按钮
-  fadeout(menu);
 
+  //弹出播放按钮，隐藏暂停按钮
+  menu.classList.remove('fade-in');
+  icon.classList.remove('fade-out');
+  fadeout(menu);
   fadein(icon);
 
   //停止旋转
   cd.classList.remove('one');
   cd.classList.add('suspend-cd');
-  
+
   //恢复图片原始状态
   var shrink = setTimeout(() => {
     cd.classList.remove('play-cd');
@@ -81,6 +86,9 @@ music.addEventListener('ended', function() {
   song.classList.remove('play-song');
   song.classList.add('transition-song');
   //弹出播放按钮，隐藏暂停按钮
+
+  menu.classList.remove('fade-in');
+  icon.classList.remove('fade-out');
   fadeout(menu);
 
   fadein(icon);
@@ -98,25 +106,20 @@ function fadeout(element) {
   var num = 10;
   var disappear = setInterval(() => {
     num--;
-    element.style.opacity = num / 10;
-    element.style.display = 'none';
+    element.classList.add('fade-out');
     if (num <= 0) {
       clearInterval(disappear);
     }
-  }, 100);
+  }, 40);
 }
-
 //淡入
 function fadein(element) {
-  if (element.style.opacity != 1) {
     var num = 0;
     var appear = setInterval(() => {
       num++;
-      element.style.opacity = num / 10;
-      element.style.display = 'block';
+      element.classList.add('fade-in');
       if (num >= 10) {
         clearInterval(appear);
       }
-    }, 100);
-  }
+    }, 40); 
 }

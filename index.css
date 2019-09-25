@@ -157,6 +157,14 @@ a {
   fill: #dbdbdb;
   opacity: 1;
 }
+.player .button .icon.fade-out {
+  opacity: num / 10;
+  display: none;
+}
+.player .button .icon.fade-in {
+  opacity: num / 10;
+  display: block;
+}
 .player .button .icon:hover {
   width: 50px;
   height: 50px;
@@ -181,6 +189,14 @@ a {
   transition: background-color 0.5s ease;
   fill: #dbdbdb;
   display: none;
+}
+.player .button .menu.fade-out {
+  opacity: num / 10;
+  display: none;
+}
+.player .button .menu.fade-in {
+  opacity: num / 10;
+  display: block;
 }
 .player .button .menu.hide {
   left: 5px;
@@ -211,7 +227,7 @@ a {
   overflow: hidden;
 }
 .song.transition-song {
-  transition: all 1s !important;
+  transition: all 1s;
 }
 .song.play-song {
   transition: all 1s;
