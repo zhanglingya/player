@@ -1,7 +1,7 @@
 'use strict';
 var icon = document.getElementById('icon');
 var song = document.getElementById('song');
-var cd = document.getElementById('cd');
+var disc = document.getElementById('disc');
 var circle = document.getElementById('circle');
 var goodnight = document.getElementById('goodnight');
 var menu = document.getElementById('menu');
@@ -10,6 +10,7 @@ var loader = document.getElementById('loader');
 var music = new Audio();
 music.src = 'asset/颜人中 - 晚安.mp3';
 var interval;
+var big;
 
 //播放
 icon.addEventListener('click', function() {
@@ -28,13 +29,15 @@ icon.addEventListener('click', function() {
   menu.classList.add('hide');
 
   //图片变大
-  cd.classList.add('play-cd');
-  circle.classList.add('play-circle');
+  big = setInterval(() => {
+    disc.classList.add('play-disc');
+  }, 200);
+  
 
   //旋转
-  cd.classList.add('rotate');
-
-  cd.classList.add('one');
+  disc.classList.add('rotate');
+  disc.classList.add('running');
+  
   //进度条
   music.addEventListener('timeupdate', show, false);
 
@@ -55,7 +58,6 @@ icon.addEventListener('click', function() {
 //暂停
 menu.addEventListener('click', function() {
   //缩回歌曲信息
-  song.classList.add('transition-song');
   song.classList.remove('play-song');
 
   //弹出播放按钮，隐藏暂停按钮
@@ -65,15 +67,13 @@ menu.addEventListener('click', function() {
   fadein(icon);
 
   //停止旋转
-  cd.classList.remove('one');
-  cd.classList.add('suspend-cd');
+  disc.classList.remove('running');
+  disc.classList.add('suspend-disc');
 
   //恢复图片原始状态
+  clearInterval(big);
   var shrink = setTimeout(() => {
-    cd.classList.remove('play-cd');
-    circle.classList.remove('play-circle');
-    cd.classList.add('transition-cd');
-    circle.classList.add('transition-circle');
+    disc.classList.remove('play-disc');
   }, 200);
 
   //暂停音乐
@@ -83,8 +83,7 @@ menu.addEventListener('click', function() {
 //结束
 music.addEventListener('ended', function() {
   //缩回歌曲信息
-  song.classList.remove('play-song');
-  song.classList.add('transition-song');
+  song.classList.remove('play-song');;
   //弹出播放按钮，隐藏暂停按钮
 
   menu.classList.remove('fade-in');
@@ -93,12 +92,9 @@ music.addEventListener('ended', function() {
 
   fadein(icon);
   //恢复图片原始状态
-  cd.classList.remove('play-cd');
-  circle.classList.remove('play-circle');
-  cd.classList.add('transition-cd');
-  circle.classList.add('transition-circle');
+  disc.classList.remove('play-disc');
   //清除定时器
-  cd.classList.remove('rotate');
+  disc.classList.remove('rotate');
 });
 
 //淡出

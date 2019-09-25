@@ -41,67 +41,47 @@ a {
   display: flex;
   position: absolute;
   box-shadow: 0 20px 20px rgb(191, 157, 172);
-
   .disc {
     width: 75px;
     height: 75px;
     position: absolute;
-    .cd {
-      width: 75px;
-      height: 75px;
-      top: -20px;
-      left: 20px;
-      border-radius: 50%;
-      background-image: url(asset/goodnight.jpg);
-      background-size: 100%;
-      position: relative;
-      &.transition-cd{
-        transition: all 0.5s;
-      }
-      &.play-cd {
-        transition: all 0.5s;
-        height: 90px;
-        width: 90px; 
-      }
-      &.rotate{
-        animation: rotate 10s linear 0s infinite normal;
-      }
-      &.suspend-cd{
-        animation-play-state: paused;
-      }
-      &.one{
-        animation-play-state:running;
-      }
+    top: -20px;
+    left: 20px;
+    border-radius: 50%;
+    background-image: url(asset/goodnight.jpg);
+    background-size: 100%;
+    overflow: auto;
+    transition: all 0.3s;
+    &.play-disc {
+      height: 90px;
+      width: 90px;
+    }
+    &.rotate {
+      animation: rotate 10s linear 0s infinite normal;
+    }
+    &.suspend-disc {
+      animation-play-state: paused;
+    }
+    &.running {
+      animation-play-state: running;
     }
     .circle {
       position: relative;
-      z-index: 1;
-      top: -70px;
-      left: 50px;
-      width: 15px;
-      height: 15px;
+      top: 40%;
+      left: 40%;
+      width: 20%;
+      height: 20%;
       background-color: rgba(255, 254, 255, 0.9);
       border-radius: 50%;
-      &.play-circle {
-        transition: all 0.4s;
-        height: 20px;
-        width: 20px;
-        top: -80px;
-        left: 55px;
-      }
-      &.transition-circle{
-        transition: all 0.4s;
-      }
     }
   }
   .button {
-    margin-left: 120px;
-    margin-top: 15px;
     width: 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: absolute;
+    padding:15px 0 0 120px;
     .upper {
       width: 50px;
       height: 50px;
@@ -163,12 +143,12 @@ a {
       transition: background-color 0.5s ease;
       fill: #dbdbdb;
       opacity: 1;
-      &.fade-out{
-        opacity :num/10;
+      &.fade-out {
+        opacity: num/10;
         display: none;
       }
-      &.fade-in{
-        opacity :num/10;
+      &.fade-in {
+        opacity: num/10;
         display: block;
       }
       &:hover {
@@ -186,7 +166,6 @@ a {
       &:hover .play {
         fill: white;
       }
-     
     }
     .menu {
       width: 50px;
@@ -197,16 +176,16 @@ a {
       transition: background-color 0.5s ease;
       fill: #dbdbdb;
       display: none;
-      &.fade-out{
-        opacity :num/10;
+      &.fade-out {
+        opacity: num/10;
         display: none;
       }
-      &.fade-in{
-        opacity :num/10;
+      &.fade-in {
+        opacity: num/10;
         display: block;
       }
       &.hide {
-        left: 5px;
+        transform: translateX(5px);
       }
       &:hover {
         width: 50px;
@@ -223,48 +202,38 @@ a {
       &:hover .stop {
         fill: white;
       }
-      
     }
   }
 }
 
 .song {
-  width: 330px;
-  height: 70px;
-  top: 5px;
+  width: 250px;
+  height: 80px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: rgba(252, 248, 251, 0.8);
   position: relative;
   overflow: hidden;
-  
-&.transition-song{
   transition: all 1s;
-}
-
-
+  padding-left: 100px;
   &.play-song {
-    transition: all 1s;
-    top: -75px;
-  }
-  p {
-    margin-top: 5px;
-    padding-left: 100px;
+    transform: translateY(-80px);
   }
   .name {
+    margin-top: 7px;
     font-size: 15px;
     color: rgb(81, 82, 89);
   }
   .singer {
+    margin-top: 7px;
     color: rgb(197, 196, 201);
     font-size: 10px;
   }
   .progress {
-    width: 65%;
+    margin-top: 7px;
+    width: 90%;
     height: 6px;
     border-radius: 7px;
-    margin-left: 100px;
-    margin-top: 10px;
     background: @background-color;
     cursor: pointer;
     .loader {
@@ -279,9 +248,6 @@ a {
   }
 }
 
-
-
-
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -290,5 +256,3 @@ a {
     transform: rotate(360deg);
   }
 }
-
-
