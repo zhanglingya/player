@@ -28,13 +28,14 @@ a {
   font-family: Arial, Helvetica, sans-serif;
 }
 .player {
-  width: 350px;
-  height: 80px;
+  width: 230px;
+  height: 65px;
   border-radius: 10px;
   background-color: #fffeff;
   display: flex;
   position: absolute;
   box-shadow: 0 20px 20px #bf9dac;
+  padding: 15px 0 0 120px;
 }
 .player .disc {
   width: 75px;
@@ -76,7 +77,6 @@ a {
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  padding: 15px 0 0 120px;
 }
 .player .button .upper {
   width: 50px;
