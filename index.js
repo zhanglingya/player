@@ -18,7 +18,6 @@ icon.addEventListener('click', function() {
 
   //弹出歌曲信息
   song.classList.add('play-song');
-
   //弹出暂停按钮，隐藏播放按钮
   fadeout(icon);
 
@@ -28,7 +27,11 @@ icon.addEventListener('click', function() {
   //图片变大
   cd.classList.add('play-cd');
   circle.classList.add('play-circle');
+  
+  //旋转
+  cd.classList.add('rotate');
 
+  cd.classList.add('one');
   //进度条
   music.addEventListener('timeupdate', show, false);
 
@@ -49,22 +52,24 @@ icon.addEventListener('click', function() {
 //暂停
 menu.addEventListener('click', function() {
   //缩回歌曲信息
-  song.classList.add('suspend-song');
-
+  song.classList.add('transition-song');
+  song.classList.remove('play-song');
   //弹出播放按钮，隐藏暂停按钮
   fadeout(menu);
 
   fadein(icon);
 
-  //清除定时器
+  //停止旋转
+  cd.classList.remove('one');
   cd.classList.add('suspend-cd');
-  circle.classList.add('suspend-circle');
-
+  
   //恢复图片原始状态
   var shrink = setTimeout(() => {
-    cd.classList.add('small-cd');
-    circle.classList.add('suspeng-circle');
-  }, 100);
+    cd.classList.remove('play-cd');
+    circle.classList.remove('play-circle');
+    cd.classList.add('transition-cd');
+    circle.classList.add('transition-circle');
+  }, 200);
 
   //暂停音乐
   music.pause();
@@ -73,18 +78,19 @@ menu.addEventListener('click', function() {
 //结束
 music.addEventListener('ended', function() {
   //缩回歌曲信息
-  song.classList.add('stop-song');
-
+  song.classList.remove('play-song');
+  song.classList.add('transition-song');
   //弹出播放按钮，隐藏暂停按钮
   fadeout(menu);
 
   fadein(icon);
   //恢复图片原始状态
-  cd.classList.add('stop-cd');
-  circle.classList.add('stop-circle');
-
+  cd.classList.remove('play-cd');
+  circle.classList.remove('play-circle');
+  cd.classList.add('transition-cd');
+  circle.classList.add('transition-circle');
   //清除定时器
-  cd.classList.add('cease');
+  cd.classList.remove('rotate');
 });
 
 //淡出

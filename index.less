@@ -55,26 +55,22 @@ a {
       background-image: url(asset/goodnight.jpg);
       background-size: 100%;
       position: relative;
+      &.transition-cd{
+        transition: all 0.5s;
+      }
       &.play-cd {
         transition: all 0.5s;
         height: 90px;
-        width: 90px;
+        width: 90px; 
+      }
+      &.rotate{
         animation: rotate 10s linear 0s infinite normal;
       }
-      &.suspend-cd {
+      &.suspend-cd{
         animation-play-state: paused;
       }
-      &.small-cd {
-        height: 75px;
-        width: 75px;
-      }
-      &.stop-cd {
-        transition: all 0.8s;
-        height: 75px;
-        width: 75px;
-      }
-      &.cease {
-        animation: stop 0s linear 0s infinite normal;
+      &.one{
+        animation-play-state:running;
       }
     }
     .circle {
@@ -93,19 +89,8 @@ a {
         top: -80px;
         left: 55px;
       }
-      &.suspend-circle {
-        transition: all 0.8s;
-        height: 15px;
-        width: 15px;
-        top: -70px;
-        left: 50px;
-      }
-      &.stop-circle {
-        transition: all 0.6s;
-        height: 15px;
-        width: 15px;
-        top: -70px;
-        left: 50px;
+      &.transition-circle{
+        transition: all 0.4s;
       }
     }
   }
@@ -193,6 +178,7 @@ a {
       &:hover .play {
         fill: white;
       }
+     
     }
     .menu {
       width: 50px;
@@ -221,6 +207,7 @@ a {
       &:hover .stop {
         fill: white;
       }
+      
     }
   }
 }
@@ -234,18 +221,15 @@ a {
   background-color: rgba(252, 248, 251, 0.8);
   position: relative;
   overflow: hidden;
+  
+&.transition-song{
+  transition: all 1s !important;
+}
+
+
   &.play-song {
     transition: all 1s;
     top: -75px;
-  }
-  &.suspend-song {
-    transition: all 1.5s;
-    top: 10px;
-    overflow: hidden;
-  }
-  &.stop-song {
-    transition: all 1s;
-    top: 10px;
   }
   p {
     margin-top: 5px;
@@ -280,6 +264,7 @@ a {
 }
 
 
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -288,14 +273,5 @@ a {
     transform: rotate(360deg);
   }
 }
-@keyframes stop {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
 
 
