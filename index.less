@@ -33,7 +33,7 @@ a {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.player {
+.player-container {
   width: 230px;
   height: 65px;
   border-radius: 10px;
@@ -41,41 +41,50 @@ a {
   display: flex;
   position: absolute;
   box-shadow: 0 20px 20px rgb(191, 157, 172);
-  padding:15px 0 0 120px;
+  padding: 15px 0 0 120px;
   .disc {
     width: 75px;
     height: 75px;
-    position: absolute;
-    top: -20px;
-    left: 20px;
+    position: relative;
+    top: -40px;
+    left: -100px;
     border-radius: 50%;
     background-image: url(asset/goodnight.jpg);
     background-size: 100%;
-    overflow: auto;
-    transition: all 0.3s;
-    &.play-disc {
-      height: 90px;
-      width: 90px;
+    transform-origin:0 0;  
+    transition: all 0.5s;
+    &.advancing-disc {
+     transform: scale(1.2);
     }
-    &.rotate {
+    .cd {
+      width: 75px;
+      height: 75px;
+      position: absolute;
+      border-radius: 50%;
+      background-image: url(asset/goodnight.jpg);
+      background-size: 100%;
+      transition: all 0.3s;
       animation: rotate 10s linear 0s infinite normal;
-    }
-    &.suspend-disc {
       animation-play-state: paused;
-    }
-    &.running {
-      animation-play-state: running;
+      &.advancing-cd {
+        animation-play-state: running;
+      }
     }
     .circle {
-      position: relative;
-      top: 40%;
-      left: 40%;
+      position: absolute;
+      margin: auto;
+      top:0;
+      left:0;
+      bottom: 0;
+      right:0;
       width: 20%;
       height: 20%;
       background-color: rgba(255, 254, 255, 0.9);
       border-radius: 50%;
     }
+    
   }
+  
   .button {
     width: 200px;
     display: flex;
@@ -107,7 +116,6 @@ a {
         fill: white;
       }
     }
-
     .lower {
       width: 50px;
       height: 50px;
@@ -132,7 +140,6 @@ a {
         fill: white;
       }
     }
-
     .icon {
       width: 50px;
       height: 50px;
@@ -143,13 +150,10 @@ a {
       transition: background-color 0.5s ease;
       fill: #dbdbdb;
       opacity: 1;
-      &.fade-out {
-        opacity: num/10;
+      &.disappearing {
+        opacity: 0;
         display: none;
-      }
-      &.fade-in {
-        opacity: num/10;
-        display: block;
+        transition: all 2s;
       }
       &:hover {
         width: 50px;
@@ -175,17 +179,13 @@ a {
       background-color: @background-color;
       transition: background-color 0.5s ease;
       fill: #dbdbdb;
+      opacity: 0;
       display: none;
-      &.fade-out {
-        opacity: num/10;
-        display: none;
-      }
-      &.fade-in {
-        opacity: num/10;
-        display: block;
-      }
-      &.hide {
+      &.appearing {
         transform: translateX(5px);
+        opacity: 1;
+        transition: all 2s;
+        display: block;
       }
       &:hover {
         width: 50px;
@@ -206,8 +206,8 @@ a {
   }
 }
 
-.song {
-  width: 250px;
+.song-container {
+  width: 230px;
   height: 80px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -216,7 +216,7 @@ a {
   overflow: hidden;
   transition: all 1s;
   padding-left: 100px;
-  &.play-song {
+  &.advancing-song {
     transform: translateY(-80px);
   }
   .name {

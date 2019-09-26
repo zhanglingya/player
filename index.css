@@ -27,7 +27,7 @@ a {
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
 }
-.player {
+.player-container {
   width: 230px;
   height: 65px;
   border-radius: 10px;
@@ -37,48 +37,55 @@ a {
   box-shadow: 0 20px 20px #bf9dac;
   padding: 15px 0 0 120px;
 }
-.player .disc {
+.player-container .disc {
   width: 75px;
   height: 75px;
-  position: absolute;
-  top: -20px;
-  left: 20px;
+  position: relative;
+  top: -40px;
+  left: -100px;
   border-radius: 50%;
   background-image: url(asset/goodnight.jpg);
   background-size: 100%;
-  overflow: auto;
+  transform-origin: 0 0;
+  transition: all 0.5s;
+}
+.player-container .disc.advancing-disc {
+  transform: scale(1.2);
+}
+.player-container .disc .cd {
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  border-radius: 50%;
+  background-image: url(asset/goodnight.jpg);
+  background-size: 100%;
   transition: all 0.3s;
-}
-.player .disc.play-disc {
-  height: 90px;
-  width: 90px;
-}
-.player .disc.rotate {
   animation: rotate 10s linear 0s infinite normal;
-}
-.player .disc.suspend-disc {
   animation-play-state: paused;
 }
-.player .disc.running {
+.player-container .disc .cd.advancing-cd {
   animation-play-state: running;
 }
-.player .disc .circle {
-  position: relative;
-  top: 40%;
-  left: 40%;
+.player-container .disc .circle {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   width: 20%;
   height: 20%;
   background-color: rgba(255, 254, 255, 0.9);
   border-radius: 50%;
 }
-.player .button {
+.player-container .button {
   width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: absolute;
 }
-.player .button .upper {
+.player-container .button .upper {
   width: 50px;
   height: 50px;
   position: relative;
@@ -87,7 +94,7 @@ a {
   transition: background-color 0.5s ease;
   fill: #dbdbdb;
 }
-.player .button .upper:hover {
+.player-container .button .upper:hover {
   width: 50px;
   height: 50px;
   border-radius: 10px;
@@ -95,15 +102,15 @@ a {
   cursor: pointer;
   color: white;
 }
-.player .button .upper .backward {
+.player-container .button .upper .backward {
   width: 32px;
   margin: 9px;
   transition: fill 0.5s ease;
 }
-.player .button .upper:hover .backward {
+.player-container .button .upper:hover .backward {
   fill: white;
 }
-.player .button .lower {
+.player-container .button .lower {
   width: 50px;
   height: 50px;
   position: relative;
@@ -112,22 +119,22 @@ a {
   transition: background-color 0.5s ease;
   fill: #dbdbdb;
 }
-.player .button .lower:hover {
+.player-container .button .lower:hover {
   width: 50px;
   height: 50px;
   border-radius: 10px;
   background-color: #e1dee2;
   cursor: pointer;
 }
-.player .button .lower .forward {
+.player-container .button .lower .forward {
   width: 32px;
   margin: 9px;
   transition: fill 0.5s ease;
 }
-.player .button .lower:hover .forward {
+.player-container .button .lower:hover .forward {
   fill: white;
 }
-.player .button .icon {
+.player-container .button .icon {
   width: 50px;
   height: 50px;
   position: relative;
@@ -138,30 +145,27 @@ a {
   fill: #dbdbdb;
   opacity: 1;
 }
-.player .button .icon.fade-out {
-  opacity: num / 10;
+.player-container .button .icon.disappearing {
+  opacity: 0;
   display: none;
+  transition: all 2s;
 }
-.player .button .icon.fade-in {
-  opacity: num / 10;
-  display: block;
-}
-.player .button .icon:hover {
+.player-container .button .icon:hover {
   width: 50px;
   height: 50px;
   border-radius: 10px;
   background-color: #e1dee2;
   cursor: pointer;
 }
-.player .button .icon .play {
+.player-container .button .icon .play {
   width: 32px;
   margin: 9px;
   transition: fill 0.5s ease;
 }
-.player .button .icon:hover .play {
+.player-container .button .icon:hover .play {
   fill: white;
 }
-.player .button .menu {
+.player-container .button .menu {
   width: 50px;
   height: 50px;
   position: relative;
@@ -169,36 +173,32 @@ a {
   background-color: #fffeff;
   transition: background-color 0.5s ease;
   fill: #dbdbdb;
+  opacity: 0;
   display: none;
 }
-.player .button .menu.fade-out {
-  opacity: num / 10;
-  display: none;
-}
-.player .button .menu.fade-in {
-  opacity: num / 10;
+.player-container .button .menu.appearing {
+  transform: translateX(5px);
+  opacity: 1;
+  transition: all 2s;
   display: block;
 }
-.player .button .menu.hide {
-  transform: translateX(5px);
-}
-.player .button .menu:hover {
+.player-container .button .menu:hover {
   width: 50px;
   height: 50px;
   border-radius: 10px;
   background-color: #e1dee2;
   cursor: pointer;
 }
-.player .button .menu .stop {
+.player-container .button .menu .stop {
   width: 32px;
   margin: 9px;
   transition: fill 0.2s ease;
 }
-.player .button .menu:hover .stop {
+.player-container .button .menu:hover .stop {
   fill: white;
 }
-.song {
-  width: 250px;
+.song-container {
+  width: 230px;
   height: 80px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -208,20 +208,20 @@ a {
   transition: all 1s;
   padding-left: 100px;
 }
-.song.play-song {
+.song-container.advancing-song {
   transform: translateY(-80px);
 }
-.song .name {
+.song-container .name {
   margin-top: 7px;
   font-size: 15px;
   color: #515259;
 }
-.song .singer {
+.song-container .singer {
   margin-top: 7px;
   color: #c5c4c9;
   font-size: 10px;
 }
-.song .progress {
+.song-container .progress {
   margin-top: 7px;
   width: 90%;
   height: 6px;
@@ -229,7 +229,7 @@ a {
   background: #fffeff;
   cursor: pointer;
 }
-.song .progress .loader {
+.song-container .progress .loader {
   height: 100%;
   /*进度条长度*/
   width: 0%;

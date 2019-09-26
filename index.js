@@ -2,6 +2,7 @@
 var icon = document.getElementById('icon');
 var song = document.getElementById('song');
 var disc = document.getElementById('disc');
+var cd = document.getElementById('cd');
 var circle = document.getElementById('circle');
 var goodnight = document.getElementById('goodnight');
 var menu = document.getElementById('menu');
@@ -9,8 +10,6 @@ var progress = document.getElementById('progress');
 var loader = document.getElementById('loader');
 var music = new Audio();
 music.src = 'asset/颜人中 - 晚安.mp3';
-var interval;
-var big;
 
 //播放
 icon.addEventListener('click', function() {
@@ -18,26 +17,16 @@ icon.addEventListener('click', function() {
   music.play();
 
   //弹出歌曲信息
-  song.classList.add('play-song');
+  song.classList.add('advancing-song');
 
   //弹出暂停按钮，隐藏播放按钮
-  fadeout(icon);
-  fadein(menu);
+  icon.classList.add('disappearing');
+  menu.classList.add('appearing');
 
-  menu.classList.remove('fade-out');
-  icon.classList.remove('fade-in');
-  menu.classList.add('hide');
+  //光盘旋转变大
+  disc.classList.add('advancing-disc');
+  cd.classList.add('advancing-cd');
 
-  //图片变大
-  big = setInterval(() => {
-    disc.classList.add('play-disc');
-  }, 200);
-  
-
-  //旋转
-  disc.classList.add('rotate');
-  disc.classList.add('running');
-  
   //进度条
   music.addEventListener('timeupdate', show, false);
 
@@ -58,23 +47,15 @@ icon.addEventListener('click', function() {
 //暂停
 menu.addEventListener('click', function() {
   //缩回歌曲信息
-  song.classList.remove('play-song');
+  song.classList.remove('advancing-song');
 
   //弹出播放按钮，隐藏暂停按钮
-  menu.classList.remove('fade-in');
-  icon.classList.remove('fade-out');
-  fadeout(menu);
-  fadein(icon);
+  icon.classList.remove('disappearing');
+  menu.classList.remove('appearing');
 
-  //停止旋转
-  disc.classList.remove('running');
-  disc.classList.add('suspend-disc');
-
-  //恢复图片原始状态
-  clearInterval(big);
-  var shrink = setTimeout(() => {
-    disc.classList.remove('play-disc');
-  }, 200);
+  //恢复光盘原始状态
+  disc.classList.remove('advancing-disc');
+  cd.classList.remove('advancing-cd');
 
   //暂停音乐
   music.pause();
@@ -83,39 +64,13 @@ menu.addEventListener('click', function() {
 //结束
 music.addEventListener('ended', function() {
   //缩回歌曲信息
-  song.classList.remove('play-song');;
+  song.classList.remove('advancing-song');
   //弹出播放按钮，隐藏暂停按钮
 
-  menu.classList.remove('fade-in');
-  icon.classList.remove('fade-out');
-  fadeout(menu);
-
-  fadein(icon);
+  menu.classList.remove('appearing');
+  icon.classList.remove('disappearing');
   //恢复图片原始状态
-  disc.classList.remove('play-disc');
-  //清除定时器
-  disc.classList.remove('rotate');
+  clearInterval(big);
+  disc.classList.remove('advancing-disc');
+  cd.classList.remove('advancing-cd');
 });
-
-//淡出
-function fadeout(element) {
-  var num = 10;
-  var disappear = setInterval(() => {
-    num--;
-    element.classList.add('fade-out');
-    if (num <= 0) {
-      clearInterval(disappear);
-    }
-  }, 40);
-}
-//淡入
-function fadein(element) {
-    var num = 0;
-    var appear = setInterval(() => {
-      num++;
-      element.classList.add('fade-in');
-      if (num >= 10) {
-        clearInterval(appear);
-      }
-    }, 40); 
-}
