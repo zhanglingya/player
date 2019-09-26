@@ -47,10 +47,7 @@ a {
   background-image: url(asset/goodnight.jpg);
   background-size: 100%;
   transform-origin: 0 0;
-  transition: all 0.5s;
-}
-.player-container .disc.advancing-disc {
-  transform: scale(1.2);
+  transition: all 0.6s;
 }
 .player-container .disc .cd {
   width: 75px;
@@ -63,9 +60,6 @@ a {
   animation: rotate 10s linear 0s infinite normal;
   animation-play-state: paused;
 }
-.player-container .disc .cd.advancing-cd {
-  animation-play-state: running;
-}
 .player-container .disc .circle {
   position: absolute;
   margin: auto;
@@ -77,6 +71,12 @@ a {
   height: 20%;
   background-color: rgba(255, 254, 255, 0.9);
   border-radius: 50%;
+}
+.player-container .disc.advancing-disc {
+  transform: scale(1.2);
+}
+.player-container .disc .cd.advancing-cd {
+  animation-play-state: running;
 }
 .player-container .button {
   width: 200px;

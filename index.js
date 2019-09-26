@@ -9,7 +9,7 @@ var menu = document.getElementById('menu');
 var progress = document.getElementById('progress');
 var loader = document.getElementById('loader');
 var music = new Audio();
-music.src = 'asset/颜人中 - 晚安.mp3';
+music.src = 'asset/goodnight.mp3';
 
 //播放
 icon.addEventListener('click', function() {
@@ -27,21 +27,17 @@ icon.addEventListener('click', function() {
   disc.classList.add('advancing-disc');
   cd.classList.add('advancing-cd');
 
-  //进度条
-  music.addEventListener('timeupdate', show, false);
+});
+//显示进度条
+music.addEventListener('timeupdate', function(){
+  var value = (music.currentTime / music.duration) * 100;
+  loader.style.width = value + '%';  
+});
 
-  //显示进度条
-  function show() {
-    var value = (music.currentTime / music.duration) * 100;
-    loader.style.width = value + '%';
-  }
-
-  //拖动进度条
-  progress.addEventListener('click', function(e) {
-    var rate = e.offsetX / progress.offsetWidth;
-    music.currentTime = music.duration * rate;
-    show();
-  });
+//拖动进度条
+progress.addEventListener('click', function(e) {
+  var rate = e.offsetX / progress.offsetWidth;
+  music.currentTime = music.duration * rate;
 });
 
 //暂停
@@ -65,12 +61,15 @@ menu.addEventListener('click', function() {
 music.addEventListener('ended', function() {
   //缩回歌曲信息
   song.classList.remove('advancing-song');
-  //弹出播放按钮，隐藏暂停按钮
 
+  //弹出播放按钮，隐藏暂停按钮
   menu.classList.remove('appearing');
   icon.classList.remove('disappearing');
+
   //恢复图片原始状态
-  clearInterval(big);
-  disc.classList.remove('advancing-disc');
   cd.classList.remove('advancing-cd');
+  
+  setTimeout(() => {
+    disc.classList.remove('advancing-disc');  
+  }, 300);
 });
