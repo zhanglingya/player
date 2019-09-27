@@ -19,13 +19,22 @@ second.src = 'asset/May you love me till the end of time.mp3';
 var third = new Audio();
 third.src = 'asset/hobby.mp3';
 var music = [first, second, third];
+var vocal = ['晚安', '祝你爱我到天荒地老', '嗜好'];
+var pepole = ['颜人中', '颜人中/VaVa毛衍七', '颜人中'];
+var img = [
+  'url(http://p2.music.126.net/8N1fsMRm2L5HyZccc6I3ew==/109951164007377169.jpg?param=130y130)',
+  'url(http://p1.music.126.net/HUndbFyGT5_Eiei0pbiK-w==/109951164124732670.jpg?param=177y177)',
+  'url(http://p1.music.126.net/J6HaJjtgv-yVVjyUm-h-AA==/109951164373633387.jpg?param=130y130)'
+];
 var index = 0;
 
 //播放
 icon.addEventListener('click', function() {
   //播放音乐
   music[index].play();
-
+  title.innerHTML = vocal[index];
+  singer.innerHTML = pepole[index];
+  cd.style.backgroundImage = img[index];
   //弹出歌曲信息
   song.classList.add('advancing-song');
 
@@ -75,18 +84,21 @@ menu.addEventListener('click', function() {
   cd.classList.remove('advancing-cd');
 
   //暂停音乐
-  pauseall();
+  music[index].pause();
 });
 
 //上一首
 upper.addEventListener('click', function() {
-  pauseall();
+  music[index].load();
 
   index--;
   if (index == -1) {
     index = music.length - 1;
   }
   music[index].play();
+  title.innerHTML = vocal[index];
+  singer.innerHTML = pepole[index];
+  cd.style.backgroundImage = img[index];
 
   song.classList.add('advancing-song');
 
@@ -102,7 +114,7 @@ upper.addEventListener('click', function() {
     var value = (music[index].currentTime / music[index].duration) * 100;
     loader.style.width = value + '%';
   });
-  
+
   //结束
   music[index].addEventListener('ended', function() {
     //缩回歌曲信息
@@ -122,14 +134,19 @@ upper.addEventListener('click', function() {
     pauseall();
   });
 });
+
 //下一首
 lower.addEventListener('click', function() {
-  pauseall();
+  music[index].load();
   index++;
   //如果已经到了最后一首歌就切换到第一首
   if (index > music.length - 1) {
     index = 0;
   }
+  title.innerHTML = vocal[index];
+  singer.innerHTML = pepole[index];
+  cd.style.backgroundImage = img[index];
+
   music[index].play();
 
   song.classList.add('advancing-song');
@@ -147,7 +164,7 @@ lower.addEventListener('click', function() {
     var value = (music[index].currentTime / music[index].duration) * 100;
     loader.style.width = value + '%';
   });
-  
+
   //结束
   music[index].addEventListener('ended', function() {
     //缩回歌曲信息
@@ -164,7 +181,7 @@ lower.addEventListener('click', function() {
       disc.classList.remove('advancing-disc');
     }, 500);
 
-    pauseall();
+    music[index].pause();
   });
 });
 
@@ -173,11 +190,3 @@ progress.addEventListener('click', function(e) {
   var rate = e.offsetX / progress.offsetWidth;
   music[index].currentTime = music[index].duration * rate;
 });
-//音乐停止
-function pauseall() {
-  for (var i = 0; i < music.length; i++) {
-    if (music[i]) {
-      music[i].load();
-    }
-  }
-}
