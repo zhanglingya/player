@@ -9,16 +9,22 @@ var menu = document.getElementById('menu');
 var progress = document.getElementById('progress');
 var loader = document.getElementById('loader');
 var upper = document.getElementById('upper');
-var oso = document.getElementById('one');
+var lower = document.getElementById('lower');
 var title = document.getElementById('name');
-var music = new Audio();
-
+var singer = document.getElementById('singer');
+var first = new Audio();
+first.src = 'asset/goodnight.mp3';
+var second = new Audio();
+second.src = 'asset/May you love me till the end of time.mp3';
+var third = new Audio();
+third.src = 'asset/hobby.mp3';
+var music = [first, second, third];
+var index = 0;
 
 //播放
 icon.addEventListener('click', function() {
-  music.src = 'https://m10.music.126.net/20190926164112/7d516ab1a9b5c09a2ce71a3014fb1a00/yyaac/0352/0608/015f/486f2af1661b8fb76b0465aff5555cbe.m4a';
   //播放音乐
-  music.play();
+  music[index].play();
 
   //弹出歌曲信息
   song.classList.add('advancing-song');
@@ -30,18 +36,29 @@ icon.addEventListener('click', function() {
   //光盘旋转变大
   disc.classList.add('advancing-disc');
   cd.classList.add('advancing-cd');
+  //显示进度条
+  music[index].addEventListener('timeupdate', function() {
+    var value = (music[index].currentTime / music[index].duration) * 100;
+    loader.style.width = value + '%';
+  });
+  //结束
+  music[index].addEventListener('ended', function() {
+    //缩回歌曲信息
+    song.classList.remove('advancing-song');
 
-});
-//显示进度条
-music.addEventListener('timeupdate', function(){
-  var value = (music.currentTime / music.duration) * 100;
-  loader.style.width = value + '%';  
-});
+    //弹出播放按钮，隐藏暂停按钮
+    menu.classList.remove('appearing');
+    icon.classList.remove('disappearing');
 
-//拖动进度条
-progress.addEventListener('click', function(e) {
-  var rate = e.offsetX / progress.offsetWidth;
-  music.currentTime = music.duration * rate;
+    //恢复图片原始状态
+    cd.classList.remove('advancing-cd');
+
+    setTimeout(() => {
+      disc.classList.remove('advancing-disc');
+    }, 500);
+
+    pauseall();
+  });
 });
 
 //暂停
@@ -58,30 +75,18 @@ menu.addEventListener('click', function() {
   cd.classList.remove('advancing-cd');
 
   //暂停音乐
-  music.pause();
-});
-
-//结束
-music.addEventListener('ended', function() {
-  //缩回歌曲信息
-  song.classList.remove('advancing-song');
-
-  //弹出播放按钮，隐藏暂停按钮
-  menu.classList.remove('appearing');
-  icon.classList.remove('disappearing');
-
-  //恢复图片原始状态
-  cd.classList.remove('advancing-cd');
-
-  setTimeout(() => {
-    disc.classList.remove('advancing-disc');  
-  }, 500);
+  pauseall();
 });
 
 //上一首
-upper.addEventListener('click',function(){
-  music.src = 'https://m10.music.126.net/20190926162759/eb82385e5b88868a41bdb9819e161f94/yyaac/045d/065f/000e/3728b4f39f158a441a4a7db547b50c30.m4a';
-  music.play();
+upper.addEventListener('click', function() {
+  pauseall();
+
+  index--;
+  if (index == -1) {
+    index = music.length - 1;
+  }
+  music[index].play();
 
   song.classList.add('advancing-song');
 
@@ -92,18 +97,40 @@ upper.addEventListener('click',function(){
   //光盘旋转变大
   disc.classList.add('advancing-disc');
   cd.classList.add('advancing-cd');
+  //显示进度条
+  music[index].addEventListener('timeupdate', function() {
+    var value = (music[index].currentTime / music[index].duration) * 100;
+    loader.style.width = value + '%';
+  });
+  
+  //结束
+  music[index].addEventListener('ended', function() {
+    //缩回歌曲信息
+    song.classList.remove('advancing-song');
 
-  cd.style.backgroundImage = "url('http://p1.music.126.net/HUndbFyGT5_Eiei0pbiK-w==/109951164124732670.jpg?param=177y177')";
-  title.innerHTML = '祝你爱我到天荒地老';
-  singer.innerHTML = '颜人中/VaVa毛衍七';
+    //弹出播放按钮，隐藏暂停按钮
+    menu.classList.remove('appearing');
+    icon.classList.remove('disappearing');
 
+    //恢复图片原始状态
+    cd.classList.remove('advancing-cd');
+
+    setTimeout(() => {
+      disc.classList.remove('advancing-disc');
+    }, 500);
+
+    pauseall();
+  });
 });
-
-
 //下一首
-oso.addEventListener('click',function(){
-  music.src = 'https://m10.music.126.net/20190926162606/46af6f5b5d7aeeabf119ab26de8f71a7/yyaac/005f/075e/0658/7532ea28d9045e411cbb129c6f654d0f.m4a';
-  music.play();
+lower.addEventListener('click', function() {
+  pauseall();
+  index++;
+  //如果已经到了最后一首歌就切换到第一首
+  if (index > music.length - 1) {
+    index = 0;
+  }
+  music[index].play();
 
   song.classList.add('advancing-song');
 
@@ -115,7 +142,42 @@ oso.addEventListener('click',function(){
   disc.classList.add('advancing-disc');
   cd.classList.add('advancing-cd');
 
-  cd.style.backgroundImage = "url('http://p1.music.126.net/J6HaJjtgv-yVVjyUm-h-AA==/109951164373633387.jpg?param=130y130')";
-  title.innerHTML = '嗜好';
-  singer.innerHTML = '颜人中';
+  //显示进度条
+  music[index].addEventListener('timeupdate', function() {
+    var value = (music[index].currentTime / music[index].duration) * 100;
+    loader.style.width = value + '%';
+  });
+  
+  //结束
+  music[index].addEventListener('ended', function() {
+    //缩回歌曲信息
+    song.classList.remove('advancing-song');
+
+    //弹出播放按钮，隐藏暂停按钮
+    menu.classList.remove('appearing');
+    icon.classList.remove('disappearing');
+
+    //恢复图片原始状态
+    cd.classList.remove('advancing-cd');
+
+    setTimeout(() => {
+      disc.classList.remove('advancing-disc');
+    }, 500);
+
+    pauseall();
+  });
 });
+
+//拖动进度条
+progress.addEventListener('click', function(e) {
+  var rate = e.offsetX / progress.offsetWidth;
+  music[index].currentTime = music[index].duration * rate;
+});
+//音乐停止
+function pauseall() {
+  for (var i = 0; i < music.length; i++) {
+    if (music[i]) {
+      music[i].load();
+    }
+  }
+}
