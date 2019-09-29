@@ -13,25 +13,40 @@ var lower = document.getElementById('lower');
 var title = document.getElementById('name');
 var singer = document.getElementById('singer');
 var music = new Audio();
-var voice = ['asset/goodnight.mp3', 'asset/May you love me till the end of time.mp3', 'asset/hobby.mp3'];
-var vocal = ['晚安', '祝你爱我到天荒地老', '嗜好'];
-var pepole = ['颜人中', '颜人中/VaVa毛衍七', '颜人中'];
-var img = [
-  'url(http://p2.music.126.net/8N1fsMRm2L5HyZccc6I3ew==/109951164007377169.jpg?param=130y130)',
-  'url(http://p1.music.126.net/HUndbFyGT5_Eiei0pbiK-w==/109951164124732670.jpg?param=177y177)',
+var info = [{
+  src:'asset/goodnight.mp3',
+  title: '晚安',
+  singer: '颜人中',
+  backgroundImage:
+    'url(http://p2.music.126.net/8N1fsMRm2L5HyZccc6I3ew==/109951164007377169.jpg?param=130y130)'
+},{
+  src: 'asset/love.mp3',
+  title: '祝你爱我到天荒地老',
+  singer: '颜人中/VaVa毛衍七',
+  backgroundImage:
+  'url(http://p1.music.126.net/HUndbFyGT5_Eiei0pbiK-w==/109951164124732670.jpg?param=177y177)'
+},{
+  src: 'asset/hobby.mp3',
+  title: '嗜好',
+  singer: '颜人中',
+  backgroundImage:
   'url(http://p1.music.126.net/J6HaJjtgv-yVVjyUm-h-AA==/109951164373633387.jpg?param=130y130)'
-];
+}];
 var index = 0;
+
+window.onload = function() {
+  music.src = info[index].src;
+  title.innerHTML = info[index].title;
+  singer.innerHTML = info[index].singer;
+  cd.style.backgroundImage = info[index].backgroundImage;
+};
 
 //播放
 icon.addEventListener('click', function() {
-  //播放音乐
+  //显示歌曲、光盘、歌名、歌手等信息并播放音乐
 
-  music.src = voice[index];
   music.play();
-  title.innerHTML = vocal[index];
-  singer.innerHTML = pepole[index];
-  cd.style.backgroundImage = img[index];
+
   //弹出歌曲信息
   song.classList.add('advancing-song');
 
@@ -42,64 +57,6 @@ icon.addEventListener('click', function() {
   //光盘旋转变大
   disc.classList.add('advancing-disc');
   cd.classList.add('advancing-cd');
-});
-
-//上一首
-upper.addEventListener('click', function() {
-  music.load();
-
-  index--;
-  if (index == -1) {
-    index = voice.length - 1;
-  }
-  music.src = voice[index];
-  music.play();
-  title.innerHTML = vocal[index];
-  singer.innerHTML = pepole[index];
-  cd.style.backgroundImage = img[index];
-
-  song.classList.add('advancing-song');
-
-  //弹出暂停按钮，隐藏播放按钮
-  icon.classList.add('disappearing');
-  menu.classList.add('appearing');
-
-  //光盘旋转变大
-  disc.classList.add('advancing-disc');
-  cd.classList.add('advancing-cd');
-
-  loader.style.width = '0%';
-});
-
-//下一首
-lower.addEventListener('click', function() {
-  music.load();
-
-  index++;
-  //如果已经到了最后一首歌就切换到第一首
-  if (index > voice.length - 1) {
-    index = 0;
-  }
-  music.src = voice[index];
-  
- 
-  title.innerHTML = vocal[index];
-  singer.innerHTML = pepole[index];
-  cd.style.backgroundImage = img[index];
-
-  music.play();
-
-  song.classList.add('advancing-song');
-
-  //弹出暂停按钮，隐藏播放按钮
-  icon.classList.add('disappearing');
-  menu.classList.add('appearing');
-
-  //光盘旋转变大
-  disc.classList.add('advancing-disc');
-  cd.classList.add('advancing-cd');
-
-  loader.style.width = '0%';
 });
 
 //暂停
@@ -119,16 +76,38 @@ menu.addEventListener('click', function() {
   music.pause();
 });
 
+//上一首
+upper.addEventListener('click', function() {
+  //切换歌曲、光盘、歌名、歌手等信息并播放音乐
+  index--;
+  if (index == -1) {
+    index = info.length - 1;
+  }
+  change();
+});
+
+//下一首
+lower.addEventListener('click', function() {
+  index++;
+  //如果已经到了最后一首歌就切换到第一首并播放音乐
+  if (index > info.length - 1) {
+    index = 0;
+  }
+  change();
+});
+
 //拖动进度条
 progress.addEventListener('click', function(e) {
   var rate = e.offsetX / progress.offsetWidth;
   music.currentTime = music.duration * rate;
 });
+
 //显示进度条
 music.addEventListener('timeupdate', function() {
   var value = (music.currentTime / music.duration) * 100;
   loader.style.width = value + '%';
 });
+
 //结束
 music.addEventListener('ended', function() {
   //缩回歌曲信息
@@ -147,3 +126,29 @@ music.addEventListener('ended', function() {
 
   music.pause();
 });
+
+//切换歌曲
+function change(){
+ //切换歌曲再切回这首歌重新加载播放
+ music.load();
+
+ music.src = info[index].src;
+  title.innerHTML = info[index].title;
+  singer.innerHTML = info[index].singer;
+  cd.style.backgroundImage = info[index].backgroundImage;
+
+  music.play();
+
+  //弹出歌曲信息
+  song.classList.add('advancing-song');
+
+  //弹出暂停按钮，隐藏播放按钮
+  icon.classList.add('disappearing');
+  menu.classList.add('appearing');
+
+  //光盘旋转变大
+  disc.classList.add('advancing-disc');
+  cd.classList.add('advancing-cd');
+
+  loader.style.width = '0%';
+}
